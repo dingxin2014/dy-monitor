@@ -1,0 +1,5 @@
+[
+	{"url":"#!/bill",click:"","name":"电子回单","order":"20","perm":"ereceipt_list","code":"bill",width:"15%"},
+	{"url":"#!/register",click:"","name":"App注册","order":"20","perm":"appRegister_list","code":"register",width:"15%"},
+	{"url":"#!/monitor",click:"","name":"Job监控","order":"20","perm":"jobMonitor_list","code":"monitor",width:"15%"}
+]

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dooioo.ereceipt.common.dao.BillMapper">
+
+	
+	<insert id="batchSave" useGeneratedKeys="true" parameterType="java.util.Map">
+		INSERT INTO T_ERECEIPT_BILL(payInfoId,bankCode,amount,easSerialNumber,payInfoCreateTime,explanation,payBankAccount,payBankAccountName,
+		payBankName, receiptBankAccount, receiptBankAccountName, receiptBankName, serialNumber, payFinishTime, bankStatus, bankMessage, easBillNumber, billNumber, requestId,
+		creator,createTime,updator,updateTime)
+		VALUES
+		<foreach collection="list" item="item" index="index" separator="," >
+			(#{item.payInfoId,jdbcType=VARCHAR},#{item.bankCode,jdbcType=VARCHAR},#{item.amount,jdbcType=NUMERIC},#{item.easSerialNumber,jdbcType=VARCHAR},
+			#{item.payInfoCreateTime,jdbcType=TIMESTAMP},#{item.explanation,jdbcType=VARCHAR},#{item.payBankAccount,jdbcType=VARCHAR},#{item.payBankAccountName,jdbcType=VARCHAR},
+			#{item.payBankName,jdbcType=VARCHAR}, #{item.receiptBankAccount,jdbcType=VARCHAR}, #{item.receiptBankAccountName,jdbcType=VARCHAR}, #{item.receiptBankName,jdbcType=VARCHAR}, 
+			#{item.serialNumber,jdbcType=VARCHAR}, #{item.payFinishTime,jdbcType=TIMESTAMP}, #{item.bankStatus,jdbcType=VARCHAR}, #{item.bankMessage,jdbcType=VARCHAR}, 
+			#{item.easBillNumber,jdbcType=VARCHAR}, #{item.billNumber,jdbcType=VARCHAR},#{item.requestId,jdbcType=INTEGER},
+			#{item.creator,jdbcType=INTEGER},#{item.createTime,jdbcType=TIMESTAMP},#{item.updator,jdbcType=INTEGER},#{item.updateTime,jdbcType=TIMESTAMP})
+		</foreach>  
+	</insert>
+	
+	<insert id="save" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO T_ERECEIPT_BILL(payInfoId,bankCode,amount,easSerialNumber,payInfoCreateTime,explanation,payBankAccount,payBankAccountName,
+		payBankName, receiptBankAccount, receiptBankAccountName, receiptBankName, serialNumber, payFinishTime, bankStatus, bankMessage ,easBillNumber, billNumber, requestId,
+		creator,createTime,updator,updateTime)
+		VALUES(#{payInfoId,jdbcType=VARCHAR},#{bankCode,jdbcType=VARCHAR},#{amount,jdbcType=NUMERIC},#{easSerialNumber,jdbcType=VARCHAR},
+		#{payInfoCreateTime,jdbcType=TIMESTAMP},#{explanation,jdbcType=VARCHAR},#{payBankAccount,jdbcType=VARCHAR},#{payBankAccountName,jdbcType=VARCHAR},
+		#{payBankName,jdbcType=VARCHAR}, #{receiptBankAccount,jdbcType=VARCHAR}, #{receiptBankAccountName,jdbcType=VARCHAR}, #{receiptBankName,jdbcType=VARCHAR}, 
+		#{serialNumber,jdbcType=VARCHAR}, #{payFinishTime,jdbcType=TIMESTAMP}, #{bankStatus,jdbcType=VARCHAR}, #{bankMessage,jdbcType=VARCHAR},
+		#{easBillNumber,jdbcType=VARCHAR}, #{billNumber,jdbcType=VARCHAR}, #{requestId, jdbcType=INTEGER},
+		#{creator,jdbcType=INTEGER},#{createTime,jdbcType=TIMESTAMP},#{updator,jdbcType=INTEGER},#{updateTime,jdbcType=TIMESTAMP})
+	</insert>
+	
+	<select id="existBill" resultType="java.lang.Integer" parameterType="java.lang.String">
+		SELECT COUNT(1)
+		FROM T_ERECEIPT_BILL(NOLOCK)
+		WHERE easSerialNumber = #{easSerialNumber ,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="getBillListByAccount" parameterType="java.util.Map" resultType="com.dooioo.ereceipt.common.model.Bill">
+		SELECT *
+		FROM T_ERECEIPT_BILL (NOLOCK)
+		WHERE 
+		payBankAccount = #{payBankAccount,jdbcType=VARCHAR} AND 
+		receiptBankAccount = #{receiptBankAccount, jdbcType=VARCHAR} AND 
+		CONVERT(VARCHAR(10),payFinishTime,112) BETWEEN 
+		CONVERT(VARCHAR(10),#{fromPayTime, jdbcType=TIMESTAMP},112) AND CONVERT(VARCHAR(10),#{toPayTime, jdbcType=TIMESTAMP},112)
+		AND flag = #{flag, jdbcType=INTEGER};
+	</select>
+	
+	<update id="update" parameterType="com.dooioo.ereceipt.common.model.Bill">
+		UPDATE T_ERECEIPT_BILL 
+		<set>
+			<if test="flag != null">
+			flag = #{flag, jdbcType=INTEGER},
+			</if>
+			<if test="requestId != null">
+			requestId = #{requestId, jdbcType=INTEGER},
+			</if>
+			<if test="updator != null">
+			updator = #{updator, jdbcType=INTEGER},
+			</if>
+			<if test="updateTime != null">
+			updateTime = #{updateTime, jdbcType=INTEGER}
+			</if>
+		</set>
+		WHERE id = #{id, jdbcType=INTEGER}
+	</update>
+	
+	<select id="getBillList" parameterType="java.util.Map" resultType="com.dooioo.ereceipt.common.model.Bill">
+		SELECT *
+		FROM T_ERECEIPT_BILL (NOLOCK)
+		WHERE CONVERT(VARCHAR(10),payFinishTime,112) BETWEEN 
+		CONVERT(VARCHAR(10),#{fromPayTime, jdbcType=TIMESTAMP},112) AND CONVERT(VARCHAR(10),#{toPayTime, jdbcType=TIMESTAMP},112)
+		AND flag = #{flag, jdbcType=INTEGER}
+	</select>
+	
+	<select id="billDistinctToRequest" parameterType="java.util.Map" resultType="com.dooioo.ereceipt.common.model.Request">
+		SELECT DISTINCT bankCode, payBankAccount,  receiptBankAccount
+		FROM T_ERECEIPT_BILL (NOLOCK)
+		WHERE CONVERT(VARCHAR(10),payFinishTime,112) BETWEEN 
+		CONVERT(VARCHAR(10),#{fromPayTime, jdbcType=TIMESTAMP},112) AND CONVERT(VARCHAR(10),#{toPayTime, jdbcType=TIMESTAMP},112)
+		AND flag = #{flag, jdbcType=INTEGER}
+	</select>
+	
+	<select id="getBillBySerialNumber" parameterType="java.lang.String" resultType="com.dooioo.ereceipt.common.model.Bill">
+		SELECT *
+		FROM T_ERECEIPT_BILL (NOLOCK)
+		WHERE serialNumber = #{serialNumber};
+	</select>
+	
+	<select id="getBillByEasBillNumber" parameterType="java.lang.String" resultType="com.dooioo.ereceipt.common.model.Bill">
+		SELECT *
+		FROM T_ERECEIPT_BILL (NOLOCK)
+		WHERE easBillNumber = #{easBillNumber};
+	</select>
+
+
+	<select id="queryBankBillList" parameterType="java.util.Map" resultType="com.dooioo.ereceipt.common.model.Bill">
+		SELECT bill.id, bill.bankCode,bill.billNumber,bill.payFinishTime,
+		bill.serialNumber,bill.receiptBankAccountName,bill.receiptBankAccount,upload.virtualPath
+		FROM T_ERECEIPT_BILL bill (NOLOCK) left join T_ERECEIPT_UPLOAD upload (NOLOCK) on bill.id=upload.billId
+		<where> 1=1
+			<if test="bankCode!='' and bankCode!=null">
+				and bill.bankCode=#{bankCode}
+			</if>
+			<if test="billNumber!='' and billNumber!=null">
+				and bill.billNumber=#{billNumber}
+			</if>
+			<if test="payDateFrom!='' and payDateFrom!=null">
+				and bill.payFinishTime &gt;=#{payDateFrom}
+			</if>
+			<if test="payDateTo!='' and payDateTo!=null">
+				and bill.payFinishTime &lt;=#{payDateTo}
+			</if>
+			<if test="serialNumber!='' and serialNumber!=null">
+				and bill.serialNumber=#{serialNumber}
+			</if>
+			<if test="receiptBankAccountName!='' and receiptBankAccountName!=null">
+				and bill.receiptBankAccountName  like CONCAT('%','${receiptBankAccountName}','%' )
+			</if>
+			<if test="receiptBankAccount!='' and receiptBankAccount!=null">
+				and bill.receiptBankAccount=#{receiptBankAccount}
+			</if>
+		</where>
+	</select>
+
+
+
+
+</mapper>
+

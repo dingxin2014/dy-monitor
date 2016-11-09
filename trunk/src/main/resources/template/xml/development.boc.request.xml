@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<bocb2e version="100" security="true" lang="chs">
+
+    <head>
+        <termid>E010073177131</termid>
+        <trnid>155qazw2aa8</trnid>
+        <custid>133723595</custid>
+        <cusopr>136101170</cusopr>
+        <trncod>b2e0500</trncod>
+        <token></token>
+    </head>
+    <trans>
+        <trn-b2e0500-rq>
+            <b2e0500-rq>
+                <tratype>A</tratype>
+                <amtscope>
+                    <minamt></minamt>
+                    <maxamt></maxamt>
+                </amtscope>
+                <datescope>
+                    <from></from>
+                    <to></to>
+                </datescope>
+                <domaccount>
+                    <transact></transact>
+                    <transname></transname>
+                </domaccount>
+                <insid></insid>
+                <multidata>
+                    <confirmdata>
+                        <actacn></actacn>
+                        <ibknum></ibknum>
+                    </confirmdata>
+                </multidata>
+            </b2e0500-rq>
+        </trn-b2e0500-rq>
+    </trans>
+
+</bocb2e>

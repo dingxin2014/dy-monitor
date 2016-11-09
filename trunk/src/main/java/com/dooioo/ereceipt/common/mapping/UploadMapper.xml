@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dooioo.ereceipt.common.dao.UploadMapper">
+
+	<insert id="save" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO T_ERECEIPT_UPLOAD(billId, requestId, fileName, virtualPath, uploadFlag, creator, createTime, updator, updateTime)
+		VALUES(#{billId, jdbcType=INTEGER},#{requestId, jdbcType=INTEGER},#{fileName, jdbcType=VARCHAR},#{virtualPath, jdbcType=VARCHAR}
+		,#{uploadFlag, jdbcType=INTEGER},#{creator, jdbcType=INTEGER},#{createTime, jdbcType=TIMESTAMP},#{updator, jdbcType=INTEGER},#{updateTime, jdbcType=TIMESTAMP})
+	</insert>
+	
+	<select id="findByBillId" parameterType="java.lang.Integer" resultType="com.dooioo.ereceipt.common.model.Upload">
+		SELECT *
+		FROM T_ERECEIPT_UPLOAD (NOLOCK)
+		WHERE billId = #{billId}
+	</select>
+
+	<select id="queryUploadByBillId" parameterType="java.lang.Integer" resultType="com.dooioo.ereceipt.common.model.Upload">
+		SELECT *
+		FROM T_ERECEIPT_UPLOAD (NOLOCK)
+		WHERE billId = #{billId};
+	</select>
+
+</mapper>

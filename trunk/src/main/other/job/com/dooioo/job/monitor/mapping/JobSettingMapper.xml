@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dooioo.job.monitor.dao.JobSettingMapper">
+
+	<select id="queryJobSettingList" parameterType="java.util.Map" resultType="com.dooioo.job.monitor.model.JobSetting">
+			SELECT * 
+			FROM T_SYS_JOB_SETTING (NOLOCK)
+		<where> 
+			deleteFlag = 0
+			<if test="appCode != null">
+				AND appCode = #{appCode, jdbcType=VARCHAR}
+			</if>
+			<if test="ip != null">
+				AND ip = #{ip, jdbcType=VARCHAR}
+			</if>
+		</where>
+	</select>
+	
+	<select id="getJobSetting" parameterType="java.util.Map" resultType="com.dooioo.job.monitor.model.JobSetting">
+		SELECT TOP 1 * 
+			FROM T_SYS_JOB_SETTING (NOLOCK)
+		<where> 
+			deleteFlag = 0
+				AND appCode = #{appCode, jdbcType=VARCHAR}
+				AND ip = #{ip, jdbcType=VARCHAR}
+				AND method = #{method, jdbcType=VARCHAR}
+		</where>
+	</select>
+	
+	
+	<insert id="save" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO T_SYS_JOB_SETTING(appCode, ip, method, cron, status, deleteFlag, suspendFlag, creator, createTime)
+		VALUES(#{appCode, jdbcType=VARCHAR}, #{ip, jdbcType=VARCHAR}, #{method, jdbcType=VARCHAR}, #{cron, jdbcType=VARCHAR}, #{status,jdbcType=INTEGER},
+		#{deleteFlag, jdbcType=INTEGER}, #{suspendFlag, jdbcType=INTEGER}, #{creator, jdbcType=INTEGER}, #{createTime, jdbcType=TIMESTAMP})
+	</insert>
+
+	<update id="update" parameterType="com.dooioo.job.monitor.model.JobSetting">
+		UPDATE T_SYS_JOB_SETTING
+		<set>
+			<if test="deleteFlag != null">
+				deleteFlag = #{deleteFlag, jdbcType=INTEGER},
+			</if>
+			<if test="suspendFlag != null">
+				suspendFlag = #{suspendFlag, jdbcType=INTEGER},
+			</if>
+			<if test="status != null">
+				status = #{status, jdbcType=INTEGER},
+			</if>
+			<if test="updator != null">
+				updator = #{updator, jdbcType=INTEGER},
+			</if>
+			<if test="updateTime != null">
+				updateTime = #{updateTime, jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		WHERE id = #{id}
+	</update>
+
+	<select id="queryMonitorList" parameterType="java.util.Map" resultType="com.dooioo.job.monitor.model.JobSetting">
+		SELECT * from T_SYS_JOB_SETTING (NOLOCK)
+		<where>
+			deleteFlag=0
+		</where>
+	</select>
+
+	<update id="updateMonitor">
+		UPDATE T_SYS_JOB_SETTING SET appCode=#{appCode},appName=#{appName},ip=#{ip},
+		method=#{method},cron=#{cron},remark=#{remark},suspendFlag=#{suspendFlag},updator=#{updator},updateTime=getDate() WHERE id=#{id}
+	</update>
+
+	<update id="deleteMonitor">
+		delete from  T_SYS_JOB_SETTING  WHERE id=#{id}
+	</update>
+
+
+
+</mapper>
+

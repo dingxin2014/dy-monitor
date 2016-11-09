@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+	http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+
+	<display-name>eReceipt plateform</display-name>
+	<context-param>
+		<param-name>webAppRootKey</param-name>
+		<param-value>eReceipt</param-value>
+	</context-param>
+	<context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath:applicationContext.xml,classpath:spring/applicationContext-*.xml</param-value>
+    </context-param>
+    
+    <!-- session超时定义,单位为分钟 -->
+    <session-config>
+        <session-timeout>0</session-timeout>
+    </session-config>
+
+	<listener>
+		<listener-class>com.dooioo.web.listener.Log4jListener</listener-class>
+	</listener>
+    <!-- 编码拦截开始 -->
+    <filter>
+        <filter-name>encodingFilter</filter-name>
+        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+        <init-param>
+            <param-name>forceEncoding</param-name>
+            <param-value>true</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>encodingFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    
+    <listener>
+        <listener-class>com.dooioo.context.SpringContextLoaderListener</listener-class>
+    </listener>
+    <listener>
+        <listener-class>org.springframework.web.context.ContextCleanupListener</listener-class>
+    </listener>
+    <!-- paginate 异步查询，停止服务时关闭线程池 asyncTotalCount=true时有效 -->
+    <listener>  
+	    <listener-class>com.github.miemiedev.mybatis.paginator.CleanupMybatisPaginatorListener</listener-class>  
+	</listener>
+	<!-- 获取请求参数 -->
+	<listener>    
+        <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>    
+	</listener>
+	
+    <servlet>
+        <servlet-name>springDispatcherServlet</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+       <init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>classpath:mvc/applicationContext-mvc.xml</param-value>
+		</init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>springDispatcherServlet</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+
+    <!-- 启用 Web 监控统计功能需要在 Web 应用的 web.xml 中加入这个 Servlet 声明 -->
+    <servlet>
+        <servlet-name>DruidStatView</servlet-name>
+        <servlet-class>com.dooioo.util.http.DruidStatViewServlet</servlet-class>
+        <init-param>
+            <!-- 是否允许清空统计数据，不写时默认 true -->
+            <param-name>resetEnable</param-name>
+            <param-value>true</param-value>
+        </init-param>
+        <init-param>
+            <!-- 用户名，用户名和密码可以不写，不写时不需要输入，直接登录 -->
+            <param-name>loginUsername</param-name>
+            <param-value>a80ab537e6859612ebea673c9b8879be</param-value>
+        </init-param>
+        <init-param>
+            <!-- 密码 -->
+            <param-name>loginPassword</param-name>
+            <param-value>56f6812b6da6ffc8baed026e2712fc82</param-value>
+        </init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DruidStatView</servlet-name>
+        <url-pattern>/druid/*</url-pattern>
+    </servlet-mapping>
+
+    <welcome-file-list>
+    	<welcome-file>/</welcome-file>
+    </welcome-file-list>
+</web-app>

@@ -1,0 +1,94 @@
+﻿<div class="mt_20 clearfix mb_5">
+	<span>共 <b class="red">{{init.totalCount}}</b> 条记录</span>
+	 <span class="right">
+		<a href="javascript:void(0)" class="btn-small btn-silver in_block" ng-show="havePrivilege('appRegister_add')"  ng-click="updateItem(-1)">新 增</a>
+	</span>
+</div>
+<table border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout:fixed;"  class="tableListNew tableNarrow mt_5">
+	<tr class="trHighHead">
+		<td width="150">ip地址</td>
+		<td width="100">应用编码</td>
+		<td width="100">应用名称</td>
+		<td width="100">有效性</td>
+		<td width="150">备注</td>
+		<td width="100">创建时间</td>
+		<td width="50">操作</td>
+	</tr>
+
+	<tr ng-repeat="item in list">
+		<td style="word-wrap:break-word;">{{item.ipAddress}}</td>
+		<td style="word-wrap:break-word;">{{item.appCode}}</td>
+		<td style="word-wrap:break-word;">{{item.appName}}</td>
+		<td style="word-wrap:break-word;">{{item.status | status}}</td>
+		<td style="word-wrap:break-word;">{{item.remark}}</td>
+		<td style="word-wrap:break-word;">{{item.createTime | dateFormat}}</td>
+		<td>
+			<a href="javascript:void(0)" class="btn-small btn-silver in_block" ng-show="havePrivilege('appRegister_update')"
+			   ng-click="updateItem($index)">修改</a>
+		</td>
+	</tr>
+	<tr ng-show="list.size()== 0">
+		<td colspan="11" align="center" class="grey999">没有查询结果返回</td>
+	</tr>
+</table>
+
+<!--start 页码-->
+<div class="pageNew txtRight mt_10">
+	<dui-pagination
+			page-size="searchQuery.pageSize"
+			current-page="searchQuery.pageNo"
+			total-page="paginate.totalPage" show-jump="true" ></dui-pagination>
+</div>
+<!--end 页码-->
+
+
+<div class="popLayer bubbleBox" id="editRegisterInfo">
+	<div class="bubbleBoxCon pd_20">
+		<input type="hidden" ng-model="register.id" name="id">
+		<table border="0" cellpadding="0" cellspacing="0" class="tableFormNew mt_5"  dui-form-validate="registerValidator" scroll="false">
+			<tbody>
+			<tr>
+				<td class="tdTitle" width="60">ip地址：</td>
+				<td class="request">●</td>
+				<td width="320">
+					<input type="text" ng-model="register.ipAddress"  id="ipAddress" dui-rule="required" class="txtNew" style="width:138px;"/>
+				</td>
+			</tr>
+			<tr>
+				<td class="tdTitle">应用编码：</td>
+				<td class="request">●</td>
+				<td>
+					<input type="text" ng-model="register.appCode"  id="appCode" dui-rule="required" class="txtNew" style="width:138px;"/>
+				</td>
+			</tr>
+			<tr>
+				<td class="tdTitle">应用名称：</td>
+				<td class="request">●</td>
+				<td>
+					<input type="text" ng-model="register.appName"  id="appName" dui-rule="required" class="txtNew" style="width:138px;"/>
+				</td>
+			</tr>
+			<tr>
+				<td class="tdTitle">有效性：</td>
+				<td class="request">●</td>
+				<td>
+					<select ng-model="register.status" class="cg_select" style="width: 170px;" dui-rule="required">
+						<option value="">请选择</option>
+						<option value="1">启用</option>
+						<option value="0">未启用</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td class="tdTitle">备注：</td>
+				<td></td>
+				<td><textarea class="tA w300" ng-model="register.remark"></textarea></td>
+			</tr>
+			</tbody>
+		</table>
+	</div>
+	<div class="bubbleBoxBtn">
+		<a href="javascript:;" class="closePopBox btn-small btn-silver in_block" ng-click="showPop = false;">关闭</a>
+		<a href="javascript:;" class="closePopBox btn-small btn-blue in_block" ng-click="comfirmEdit()">提交</a>
+	</div>
+</div>

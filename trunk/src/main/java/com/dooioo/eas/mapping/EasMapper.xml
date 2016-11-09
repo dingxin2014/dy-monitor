@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dooioo.eas.dao.EasMapper">
+
+	<select id="getEasPayBill" parameterType="java.lang.String"  resultType="com.dooioo.eas.model.EasBill">
+		SELECT TOP 1 bankBill.FSerialNumber AS easSerialNumber, 
+		bankBill.FSourceBillId AS easBillNumber,
+		bill.FNumber AS billNumber
+		FROM T_BE_BankPayingBill bankBill(NOLOCK)
+		LEFT OUTER JOIN T_CAS_PaymentBill bill(NOLOCK)
+		ON bankBill.FSourceBillId = bill.FID 
+		WHERE  bankBill.FSerialNumber = #{easSerialNumnber,jdbcType=VARCHAR} 
+	</select>
+	
+</mapper>
+

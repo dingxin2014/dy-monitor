@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dooioo.ereceipt.common.dao.RequestMapper">
+
+	<update id="update" parameterType="com.dooioo.ereceipt.common.model.Request">
+		UPDATE T_ERECEIPT_REQUEST  
+		<set>
+		<if test="flag != null">
+			flag = #{flag, jdbcType=INTEGER},
+		</if>
+		<if test="downloadFlag != null">
+			downloadFlag = #{downloadFlag, jdbcType=INTEGER},
+		</if>
+		<if test="respFileName != null">
+			respFileName = #{respFileName, jdbcType=VARCHAR},
+		</if>
+		<if test="respCode != null">
+			respCode = #{respCode, jdbcType=VARCHAR},
+		</if>
+		<if test="respMessage != null">
+			respMessage = #{respMessage, jdbcType=VARCHAR},
+		</if>
+		<if test="failTimes != null">
+			failTimes = #{failTimes, jdbcType=INTEGER},
+		</if>
+		<if test="downloadFailTimes != null">
+			downloadFailTimes = #{downloadFailTimes, jdbcType=INTEGER},
+		</if>
+		<if test="updator != null">
+			updator = #{updator, jdbcType=INTEGER},
+		</if>
+		<if test="updateTime != null">
+			updateTime = #{updateTime, jdbcType=TIMESTAMP}
+		</if>
+		</set>
+		WHERE id = #{id}
+	</update>
+	
+	<insert id="save" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO T_ERECEIPT_REQUEST(customNo, bankCode, payBankAccount, payBankAccountName, receiptBankAccount, receiptBankAccountName, respCode, respMessage, respFileName, flag, failTimes, fromDate, toDate, downloadFlag, creator, createTime)
+		VALUES(#{customNo,jdbcType=VARCHAR},#{bankCode,jdbcType=VARCHAR},#{payBankAccount,jdbcType=VARCHAR},#{payBankAccountName,jdbcType=VARCHAR},#{receiptBankAccount,jdbcType=VARCHAR},#{receiptBankAccountName,jdbcType=VARCHAR}, #{respCode,jdbcType=VARCHAR}, #{respMessage,jdbcType=VARCHAR}, #{respFileName, jdbcType=VARCHAR}, #{flag,jdbcType=INTEGER},
+		 #{failTimes,jdbcType=INTEGER}, #{fromDate,jdbcType=TIMESTAMP}, #{toDate,jdbcType=TIMESTAMP}, #{downloadFlag,jdbcType=INTEGER},
+		 #{creator,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP})
+	</insert>
+	
+	<!-- 需要重新发送请求的请求列表 -->
+	<select id="getRequests" parameterType="java.util.Map" resultType="com.dooioo.ereceipt.common.model.Request">
+		SELECT *
+		FROM T_ERECEIPT_REQUEST (NOLOCK)
+		WHERE flag = #{flag, jdbcType=INTEGER} AND failTimes <![CDATA[ <= ]]> #{failTimes, jdbcType=INTEGER}
+		AND bankCode = #{bankCode,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="getRequestList" parameterType="java.util.Map" resultType="com.dooioo.ereceipt.common.model.Request">
+		SELECT *
+		FROM T_ERECEIPT_REQUEST (NOLOCK)
+		<where>
+			<if test="flag != null">
+				flag = #{flag ,jdbcType=INTEGER}
+			</if>
+			<if test="downloadFlag != null">
+				AND downloadFlag = #{downloadFlag, jdbcType=INTEGER}
+			</if>
+		</where>
+	</select>
+
+</mapper>

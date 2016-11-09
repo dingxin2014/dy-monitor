@@ -1,0 +1,229 @@
+﻿[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  	display: none !important;
+}
+
+.tableListNew tr.earn td {
+    background: #fff0f1;
+}
+
+.search_panel {
+    border-top: 2px solid #ddd;
+    width: 138px;
+    padding-right: 20px;
+    padding-top: 5px;
+    background: #fff;
+}
+
+.display_panel {
+    border-top: 2px solid #ddd;
+    border-left: 2px solid #ddd;
+    width: 780px;
+    min-height: 400px;
+    padding-left: 20px;
+    padding-top: 20px;
+}
+.monthEllipsis {
+    text-overflow: ellipsis;
+    width: 430px;
+    white-space: nowrap;
+    overflow: hidden;
+}
+.role_panel {
+    border-radius: 5px;
+    overflow: hidden;
+    border: 1px solid #ddd;
+}
+.role_panel h4 {
+    background: #5d5c5b;
+    height: 46px;
+    padding: 0 10px;
+    line-height: 46px;
+    color: #fff;
+    margin: 0;
+}
+.role_panel_content {
+    width: 96%;
+    margin: 0 2%;
+    border-collapse: collapse;
+}
+
+.role_panel_content td, .role_panel_content th {
+    border-bottom: 1px solid #ddd;
+    padding: 10px 10px;
+
+}
+.role_panel_content tr.earn td {
+    background: #fff0f1;
+}
+.role_panel_content tr td:first-child {
+    padding-left: 0;
+}
+.role_panel_content tr td:last-child {
+    padding-right: 0;
+}
+.role_panel_control {
+    margin: 5px 2%;
+    padding: 0;
+}
+.role_panel_control .bottom_detail {
+    float: right;
+    height: 24px;
+    line-height: 24px;
+    width: 460px;
+}
+.role_panel_control .PNPagenate {
+    display: inline-block;
+    width: 280px;
+}
+
+.money_pos {
+    display: inline-block;
+    width: 120px;
+    text-align: right;
+}
+
+.easy_pagenate .pagenums {
+    margin: 0 5px;
+}
+
+.easy_pagenate .pagenums input {
+    /*display: block;*/
+    width: 20px;
+    height: 22px;
+    line-height: 0;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    border: none;
+    border-bottom: 1px solid #ccc;
+}
+.easy_pagenate .prev, .easy_pagenate .next {
+    display: block;
+    background: url("/static/img/pagenate_arrow.png") no-repeat;
+    width: 32px;
+    height: 24px;
+}
+
+
+
+
+.easy_pagenate .prev {
+    background-position: 0 -24px;
+}
+.easy_pagenate .prev:hover {
+    background-position: 0 -48px;
+}
+.easy_pagenate .prev:active {
+    background-position: 0 -72px;
+}
+.easy_pagenate .prev.disable {
+    background-position: 0 0;
+}
+.easy_pagenate .next {
+    background-position: -32px -24px;
+}
+.easy_pagenate .next:hover {
+    background-position: -32px -48px;
+}
+.easy_pagenate .next:active {
+    background-position: -32px -72px;
+}
+.easy_pagenate .next.disable {
+    background-position: -32px 0;
+}
+.easy_pagenate .loading-small {
+    float: left;
+    margin: 3px 0 0 5px;
+}
+
+
+
+.show_circle {
+    background: url("/static/img/showhide.png") no-repeat -1px -1px;
+    display: inline-block;
+    width:14px;
+    height: 14px;
+    vertical-align: middle;
+    margin-left: 3px;
+}
+.hide_circle {
+    background: url("/static/img/showhide.png") no-repeat -1px -16px;
+    display: inline-block;
+    width:14px;
+    height: 14px;
+    vertical-align: middle;
+    margin-left: 3px;
+}
+
+.monthlist label {
+    display: block;
+    padding: 3px 0;
+}
+.monthlist label:hover {
+    background: #ddd;
+}
+
+
+.easy_select {
+    position: relative;
+    background: #fff;
+}
+
+.easy_select .selInput {
+    width: 107px;
+}
+.easy_body {
+    position: absolute;
+    background: #fff;
+    padding: 3px;
+    z-index: 100;
+    border: 1px solid #ddd;
+}
+.easy_body .txtNew {
+    width: 94%;
+}
+
+.easy_options {
+    height: 160px;
+    margin-top: 5px;
+    overflow-y: scroll;
+    width: 280px;
+}
+.easy_options li {
+    width: 100%;
+    text-indent: 5px;
+    height: 22px;
+    line-height: 22px;
+    cursor: pointer;
+}
+.easy_options li.current {
+    background:#0084F1;
+    color:#fff
+}
+.easy_options li:hover {
+    color:#008aec;
+    background:#E4F2FD
+}
+
+#sidebar.fixed {
+    position: fixed;
+    top: 0;
+}
+
+/*tips*/
+.taxTipsTarget{border-bottom: 1px dashed #007AD8;cursor: default}
+.profitPanel-tips {
+    position: absolute;
+    z-index: 9999;
+}
+.profitPanel-tips-text {
+    padding: 5px 12px;
+    font-size: 12px;
+    color: #fff;
+    line-height: 150%;
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0.8);
+}
+.profitPanel-tips-text .t120{width:120px;}
+
+.uploadingMask{position: absolute;top:0;left:0;width:622px;height:200px;}
