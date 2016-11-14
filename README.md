@@ -1,5 +1,7 @@
 JOB 监控 
 配置方式为
+
+
   	<!-- job client 配置 配置jobHandler将会使本项目所有job被job sever监听-->
     <bean id="jobHandler" class="com.dooioo.monitor.job.JobHandler" scope="singleton">
     	<property name="appCode" value="${appCode}"></property>
