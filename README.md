@@ -9,5 +9,5 @@ JOB 监控
     	<property name="port" value="${jobMonitorPort}"></property>
     </bean>
     
-    test环境 jobMonitorServer＝10.8.1.162 jobMonitorPort＝134069
+    test环境 jobMonitorServer＝10.8.1.162 jobMonitorPort＝13406
     打开 huidan.dooioo.net  -> 打开JOB监控（如果有权限）
