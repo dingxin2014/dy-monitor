@@ -13,7 +13,6 @@
      <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.build.resourceEncoding>UTF-8</project.build.resourceEncoding>
-       	<javadocExecutable>${env.JAVA_HOME}\bin\javadoc</javadocExecutable>
         <spring.version>4.1.4.RELEASE</spring.version>
     </properties>
     <repositories>
@@ -43,19 +42,7 @@
             <artifactId>spring-context</artifactId>
             <version>${spring.version}</version>
         </dependency>
-      
-        <dependency>
-		  <groupId>com.jcraft</groupId>
-		  <artifactId>jsch</artifactId>
-		  <version>0.1.49</version>
-		</dependency>
-		
-		<dependency>
-		  <groupId>org.apache.camel</groupId>
-		  <artifactId>camel-ftp</artifactId>
-		  <version>2.15.3</version>
-		</dependency>
-        
+
     </dependencies>
     
      <!--部署jar文件到仓库-->
