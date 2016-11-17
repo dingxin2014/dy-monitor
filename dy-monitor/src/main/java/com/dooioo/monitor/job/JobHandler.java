@@ -126,6 +126,7 @@ public class JobHandler implements InitializingBean , ApplicationContextAware{
 			try {
 				Thread.sleep(10000);
 			} catch (InterruptedException e) {
+				break;
 			}
 		}
 		org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler threadPoolTaskScheduler = null;
@@ -155,6 +156,7 @@ public class JobHandler implements InitializingBean , ApplicationContextAware{
 			try {
 				Thread.sleep(10000);
 			} catch (InterruptedException e) {
+				break;
 			}
 		}
 		org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler threadPoolTaskScheduler = null;
@@ -261,7 +263,6 @@ public class JobHandler implements InitializingBean , ApplicationContextAware{
 	 * 修改定时任务Cron表达式,如果本机job已经destroy，此函数会重新初始化本机的job并运行
 	 * @param methodName
 	 * @param newCron
-	 * @param suspendMethodName
 	 * @throws IllegalArgumentException
 	 * @throws IllegalAccessException
 	 */
@@ -302,7 +303,6 @@ public class JobHandler implements InitializingBean , ApplicationContextAware{
 	 * parse CronTask
 	 * @param list
 	 * @param method
-	 * @param oldCrontask
 	 * @return
 	 * @throws IllegalArgumentException
 	 * @throws IllegalAccessException

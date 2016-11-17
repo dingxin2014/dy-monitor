@@ -133,6 +133,7 @@ public class JobSocketClient extends Thread implements IProtocol{
 							case ReplyTip:
 								if(logger.isInfoEnabled())
 									logger.info("[Server]"+readLine.substring(4));
+								break;
 								
 							default:
 								break;
