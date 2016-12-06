@@ -1,5 +1,7 @@
 JOB 监控 
 pom配置为
+
+
         <!-- job monitor -->
 		<dependency>
 		  <groupId>dycore</groupId>
