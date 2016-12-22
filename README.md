@@ -1,4 +1,14 @@
 JOB 监控 
+pom配置为
+
+
+        <!-- job monitor -->
+		<dependency>
+		  <groupId>dycore</groupId>
+		  <artifactId>dy-monitor</artifactId>
+		  <version>1.1.5</version>
+		</dependency>
+
 配置方式为
 
 
