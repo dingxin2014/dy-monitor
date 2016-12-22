@@ -6,7 +6,7 @@ pom配置为
 		<dependency>
 		  <groupId>dycore</groupId>
 		  <artifactId>dy-monitor</artifactId>
-		  <version>1.1.5</version>
+		  <version>1.1.6</version>
 		</dependency>
 
 配置方式为
