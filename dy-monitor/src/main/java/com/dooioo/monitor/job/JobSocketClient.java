@@ -236,12 +236,12 @@ public class JobSocketClient extends Thread implements IProtocol{
 					} catch (IOException e1) {
 					}
 				}
-				if(logger.isInfoEnabled())
-					logger.info("尝试重新连接！");
-				jobHandler.initClient();
 				break;
 			}
 		}
+		if(logger.isInfoEnabled())
+			logger.info("尝试重新连接！");
+		jobHandler.initClient();
 	}
 	
 	
