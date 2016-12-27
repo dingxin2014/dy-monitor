@@ -224,19 +224,19 @@ public class JobSocketClient extends Thread implements IProtocol{
 				if(logger.isInfoEnabled())
 					logger.info("与服务器断开连接!");
 				run = false;
-				if(in != null){
-					try {
-						in.close();
-					} catch (IOException e1) {
-					}
-				}
-				if(out != null){
-					try {
-						out.close();
-					} catch (IOException e1) {
-					}
-				}
 				break;
+			}
+		}
+		if(in != null){
+			try {
+				in.close();
+			} catch (IOException e1) {
+			}
+		}
+		if(out != null){
+			try {
+				out.close();
+			} catch (IOException e1) {
 			}
 		}
 		if(logger.isInfoEnabled())
